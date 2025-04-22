@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Aleatorios por Daroo109</title>
+    <meta name="description" content="Página random creada por Daroo109: Generador de números, colores y frutas aleatorias. ¡Haz clic y diviértete!">
+    <meta name="keywords" content="números aleatorios, generador aleatorio, página divertida, colores aleatorios, frutas aleatorias">
+    <meta name="author" content="Daroo109">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+            padding: 20px;
+        }
+        .contenedor {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #e74c3c;
+        }
+        .boton {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin: 10px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .boton:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+        #resultado {
+            margin: 25px 0;
+            font-size: 24px;
+            min-height: 50px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            border-left: 5px solid #e74c3c;
+        }
+        .opciones {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Generador de Aleatorios</h1>
+        <p>¡Haz clic en cualquier opción para generar algo aleatorio!</p>
+        
+        <div class="opciones">
+            <button class="boton" onclick="generar('numero')">Número</button>
+            <button class="boton" onclick="generar('color')">Color</button>
+            <button class="boton" onclick="generar('fruta')">Fruta</button>
+        </div>
+        
+        <div id="resultado">
+            Presiona un botón para comenzar...
+        </div>
+    </div>
+
+    <script>
+        function generar(tipo) {
+            let resultado;
+            
+            switch(tipo) {
+                case 'numero':
+                    resultado = generarNumero(0, 10000);
+                    break;
+                case 'color':
+                    resultado = generarColor();
+                    break;
+                case 'fruta':
+                    resultado = generarFruta();
+                    break;
+                default:
+                    resultado = "Opción no válida";
+            }
+            
+            mostrarResultado(resultado, tipo);
+        }
+        
+        function generarNumero(min, max) {
+            const numero = Math.floor(Math.random() * (max - min + 1)) + min;
+            return `Número aleatorio: <strong>${new Intl.NumberFormat('es-ES').format(numero)}</strong> (entre ${min} y ${max})`;
+        }
+        
+        function generarColor() {
+            const colores = ['#FF5733', '#33FF57', '#3357FF', '#F333FF', '#33FFF5', '#FF33A8'];
+            const color = colores[Math.floor(Math.random() * colores.length)];
+            
+            document.getElementById('resultado').style.backgroundColor = color + '20';
+            document.getElementById('resultado').style.borderLeftColor = color;
+            
+            return `Color aleatorio: <span style="color: ${color}">${color}</span>`;
+        }
+        
+        function generarFruta() {
+            const frutas = ['🍎 Manzana', '🍌 Plátano', '🍊 Naranja', '🍓 Fresa', '🍍 Piña', '🥝 Kiwi', '🍑 Durazno', '🍉 Sandía'];
+            return `Fruta aleatoria: <strong>${frutas[Math.floor(Math.random() * frutas.length)]}</strong>`;
+        }
+        
+        function mostrarResultado(texto, tipo) {
+            const elemento = document.getElementById('resultado');
+            elemento.innerHTML = texto;
+            elemento.style.animation = 'none';
+            void elemento.offsetWidth;
+            elemento.style.animation = 'aparecer 0.5s';
+        }
+    </script>
+
+    <style>
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #resultado {
+            animation: aparecer 0.5s;
+        }
+    </style>
+</body>
+</html>
